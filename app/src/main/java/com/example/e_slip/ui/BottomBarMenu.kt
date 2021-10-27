@@ -1,5 +1,6 @@
 package com.example.e_slip.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,7 +22,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.e_slip.BottomNavItem
-import com.example.e_slip.ui.theme.HomeScreen
+import com.example.e_slip.ui.theme.Purple200
+import com.example.e_slip.ui.theme.Teal200
 
 @ExperimentalMaterialApi
 @Composable
@@ -93,7 +95,7 @@ fun BottomNavigationBarUi(
     val backStackEntry = navController.currentBackStackEntryAsState()
     BottomNavigation(
         modifier = modifier,
-        backgroundColor = Color.DarkGray,
+        backgroundColor = Color.White,
         elevation = 5.dp
     ) {
         items.forEach { item ->
@@ -101,12 +103,14 @@ fun BottomNavigationBarUi(
             BottomNavigationItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                selectedContentColor = Color.Green,
+                selectedContentColor = Purple200,
                 unselectedContentColor = Color.Gray,
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         if (item.badgeCount > 0){
                             BadgeBox(
+                                contentColor = Purple200,
+                                backgroundColor = Teal200,
                                 badgeContent = {
                                     Text(text = item.badgeCount.toString())
                                 }
@@ -122,13 +126,13 @@ fun BottomNavigationBarUi(
                                 contentDescription = item.name
                             )
                         }
-                        if (selected){
+                        /*if (selected){
                             Text(
                                 text = item.name,
                                 textAlign = TextAlign.Center,
                                 fontSize = 10.sp
                             )
-                        }
+                        }*/
                     }
                 }
             )
