@@ -1,25 +1,30 @@
 package com.example.e_slip.ui
 
 import android.content.Context
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Sort
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.e_slip.R
 import com.example.e_slip.ui.theme.Purple200
+import com.example.e_slip.ui.theme.TextSearch
 
 @ExperimentalMaterialApi
 @Composable
@@ -36,10 +41,10 @@ fun HomeScreen(context: Context){
                 )
             )
             .fillMaxSize()
-
     ) {
         Column {
             TopMenuSection(context)
+            SearchBarSection()
         }
     }
 }
@@ -52,19 +57,19 @@ fun TopMenuSection(context: Context) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(7.5.dp)
+            .padding(vertical = 7.dp, horizontal = 8.dp)
     ) {
-        Surface(
-            onClick = { Toast.makeText(context, "icon clicked", Toast.LENGTH_SHORT).show() },
-            color = Color.Transparent,
-            modifier = Modifier.clip(CircleShape)
+        IconButton(
+            onClick = {
+                Toast.makeText(context, "icon clicked", Toast.LENGTH_SHORT).show()
+            },
         ) {
-           Icon(
-               painter = painterResource(id = R.drawable.ic_sort),
-               contentDescription = null,
-               tint = Color.Black,
-               modifier = Modifier.padding(7.5.dp)
-           )
+            Icon(
+                imageVector = Icons.Default.Sort,
+                contentDescription = null,
+                tint = Color.Black,
+                modifier = Modifier.padding(vertical = 7.dp, horizontal = 8.dp)
+            )
         }
 
         Surface(
@@ -76,12 +81,42 @@ fun TopMenuSection(context: Context) {
                 painter = painterResource(id = R.drawable.ic_profil),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(7.5.dp)
+                    .padding(vertical = 7.dp, horizontal = 8.dp)
                     .size(35.dp)
                     .clip(CircleShape)
                     .border(1.5.dp, Purple200, CircleShape)
-
             )
         }
+    }
+}
+
+@Composable
+fun SearchBarSection() {
+    Row(
+        modifier = Modifier
+            .padding(vertical = 8.dp, horizontal = 18.dp)
+            .clip(CircleShape)
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Search...",
+            color = Color.LightGray,
+            modifier= Modifier.padding(start = 12.dp),
+            fontSize = 12.sp
+        )
+
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "search",
+            modifier = Modifier
+                .size(35.dp)
+                .background(Purple200, CircleShape)
+                .padding(8.dp),
+            tint = Color.White
+        )
     }
 }
