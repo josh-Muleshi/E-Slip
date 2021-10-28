@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.e_slip.ui.BottomBar
 import com.example.e_slip.ui.theme.ESlipTheme
 
@@ -15,17 +13,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ESlipTheme {
-                BottomBar()
+                BottomBar(context = this)
             }
         }
     }
 }
 
-@ExperimentalMaterialApi
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ESlipTheme {
-        BottomBar()
-    }
-}
