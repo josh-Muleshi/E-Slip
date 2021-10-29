@@ -1,30 +1,30 @@
 package com.example.e_slip.ui
 
 import android.content.Context
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Sort
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.e_slip.Categories
 import com.example.e_slip.R
+import com.example.e_slip.ui.theme.GrayChip
 import com.example.e_slip.ui.theme.Purple200
-import com.example.e_slip.ui.theme.TextSearch
 
 @ExperimentalMaterialApi
 @Composable
@@ -45,6 +45,7 @@ fun HomeScreen(context: Context){
         Column {
             TopMenuSection(context)
             SearchBarSection()
+            CategorySection()
         }
     }
 }
@@ -118,5 +119,63 @@ fun SearchBarSection() {
                 .padding(8.dp),
             tint = Color.White
         )
+    }
+}
+
+@Composable
+fun CategorySection() {
+    Column(modifier = Modifier.padding(8.dp)) {
+        Text(
+            text = "Categories",
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(vertical = 7.dp, horizontal = 8.dp)
+        )
+        ChipSection(chips = listOf("Tout", "Dame", "Homme", "Garcon"))
+    }
+}
+
+@Composable
+fun ChipSection(
+    chips: List<String>
+) {
+    var selectedChipIndex by remember {
+        mutableStateOf(0)
+    }
+    LazyRow{
+        items(chips.size){
+            val textColor = if (selectedChipIndex == it) Color.Black else Color.Gray
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .clickable {
+                        selectedChipIndex = it
+                    }
+                    .clip(CircleShape)
+                    .background(Color.Transparent)
+                    .padding(8.dp)
+            ) {
+                Text(
+                    text = chips[it],
+                    color = textColor,
+                    style = MaterialTheme.typography.body1
+                )
+            }
+        }
+    }
+}
+
+@ExperimentalFoundationApi
+@Composable
+fun CategoryItemUi(categories: List<Categories>) {
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(2),
+        contentPadding = PaddingValues(
+            start = 7.5.dp,
+            end = 7.5.dp,
+            bottom = 70.dp
+        ),
+        modifier = Modifier.fillMaxWidth()
+    ){
+
     }
 }
